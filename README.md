@@ -8,27 +8,38 @@
 
 ### Contents
 
-* **[1 Getting Microservice Example](#1-getting-microservice-example)**
-  * [1.1 Building Microservice Example](#11-building-microservice-example)
-  * [1.2 Maven Central Releases](#12-maven-central-releases)
-  * [1.3 Latest SNAPSHOT Release](#13-latest-snapshot-releases)
-  * [1.4 Adding Microservice API to Your Maven Project](#13-adding-microservice-api-to-your-maven-project)
+* **[1 Introduction to Microservice](#1-introduction-to-microservice)**
+  * [1.1 What are Microservice ?](#11-what-are-microservice?)
+  * [1.2 Why use Microservice ?](#12-why-use-microservice?)
+  * [1.3 Features of Microservice](#13-features-of-microservice)
+* **[2 Getting Microservice Example](#2-getting-microservice-example)**
+  * [2.1 Building Microservice Example](#21-building-microservice-example)
+  * [2.2 Maven Central Releases](#22-maven-central-releases)
+  * [2.3 Latest SNAPSHOT Release](#23-latest-snapshot-releases)
+  * [2.4 Adding Microservice API to Your Maven Project](#13-adding-microservice-api-to-your-maven-project)
 
+## 1 Introduction to Microservice
 
-## 1 Getting Rules Engine
+### 1.1 What are Microservice ?
 
-### 1.1 Building Microservice Example
+### 1.2 Why use Microservice ?
+
+### 1.3 Features of Microservice
+
+## 2 Getting Rules Engine
+
+### 2.1 Building Microservice Example
 ```bash
 git clone git@github.com:hydrator/example-microservice.git
 cd example-microservice
 mvn clean package
 ```
 
-### 1.2 Maven Central Releases
+### 2.2 Maven Central Releases
 
-### 1.3 Latest SNAPSHOT Release
+### 2.3 Latest SNAPSHOT Release
 
-### 1.4 Adding Rules Engine to your Maven Project
+### 2.4 Adding Rules Engine to your Maven Project
 _Add the code below to your pom.xml_
 
 ```xml
