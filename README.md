@@ -1,5 +1,45 @@
-Example Microservices
----------------------
+# Microservice Example
+
+## What are Microservice ?
+
+## Why use Microservice ?
+
+### Content
+
+### Contents
+
+* **[1 Getting Microservice Example](#1-getting-microservice-example)**
+  * [1.1 Building Microservice Example](#11-building-microservice-example)
+  * [1.2 Maven Central Releases](#12-maven-central-releases)
+  * [1.3 Latest SNAPSHOT Release](#13-latest-snapshot-releases)
+  * [1.4 Adding Microservice API to Your Maven Project](#13-adding-microservice-api-to-your-maven-project)
+
+
+## 1 Getting Rules Engine
+
+### 1.1 Building Microservice Example
+```bash
+git clone git@github.com:hydrator/example-microservice.git
+cd example-microservice
+mvn clean package
+```
+
+### 1.2 Maven Central Releases
+
+### 1.3 Latest SNAPSHOT Release
+
+### 1.4 Adding Rules Engine to your Maven Project
+_Add the code below to your pom.xml_
+
+```xml
+<dependency>
+    <groupId>co.cask.microservice</groupId>
+    <artifactId>microservice-api</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+
 
 There are three microservices in this project to demonstrate the capabilities of microservices and how to build them on top of CDA
 
