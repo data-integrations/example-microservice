@@ -1,0 +1,39 @@
+{
+    "artifact": {
+        "name": "microservice-app",
+        "scope": "user",
+        "version": "1.0"
+    },
+    "config": {
+        "configuration": {
+            "endpoints": {
+		"in": [
+		    {
+			"name": "multiple-numbers",
+			"properties": {
+			    "namespace": "default",
+			    "topic": "multiple-numbers-topic"
+			},
+			"type": "tms"
+		    }
+		]
+            },
+            "ethreshold": 100,
+            "instances": 1,
+            "memory": 512,
+            "properties": {},
+            "vcores": 1
+        },
+        "description": "Microservice that logs the received numbers.",
+        "id": "NumberConsumer",
+        "plugin": {
+            "artifact": {
+                "name": "ExampleMicroservices",
+                "scope": "user",
+                "version": "1.0-SNAPSHOT"
+            },
+            "name": "ConsumerMicroservice"
+        },
+        "version": 1
+    }
+}

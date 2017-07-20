@@ -1,0 +1,51 @@
+{
+    "artifact": {
+        "name": "microservice-app",
+        "scope": "user",
+        "version": "1.0"
+    },
+    "config": {
+        "configuration": {
+            "endpoints": {
+                "in": [
+                    {
+                        "name": "numbers",
+                        "properties": {
+                            "namespace": "default",
+                            "topic": "number-topic"
+                        },
+                        "type": "tms"
+                    }
+                ],
+		"out": [
+		    {
+			"name": "multiple-numbers",
+			"properties": {
+			    "namespace": "default",
+			    "topic": "multiple-numbers-topic"
+			},
+			"type": "tms"
+		    }
+		]
+            },
+            "ethreshold": 100,
+            "instances": 1,
+            "memory": 512,
+            "properties": {
+	    	"multipleOf" : 10
+	    },
+            "vcores": 1
+        },
+        "description": "Microservice that checks if numbers are multiples of a given number.",
+        "id": "NumberProcessor",
+        "plugin": {
+            "artifact": {
+                "name": "ExampleMicroservices",
+                "scope": "user",
+                "version": "1.0-SNAPSHOT"
+            },
+            "name": "ProcessorMicroservice"
+        },
+        "version": 1
+    }
+}

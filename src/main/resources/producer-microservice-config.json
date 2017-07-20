@@ -1,0 +1,41 @@
+{
+    "artifact": {
+        "name": "microservice-app",
+        "scope": "user",
+        "version": "1.0"
+    },
+    "config": {
+        "configuration": {
+            "endpoints": {
+                "out": [
+                    {
+                        "name": "numbers",
+                        "properties": {
+                            "namespace": "default",
+                            "topic": "number-topic"
+                        },
+                        "type": "tms"
+                    }
+                ]
+            },
+            "ethreshold": 100,
+            "instances": 1,
+            "memory": 512,
+            "properties": {
+	    	"delayInMillisecs" : 250
+	    },
+            "vcores": 1
+        },
+        "description": "Microservice that produces numbers.",
+        "id": "NumberProducer",
+        "plugin": {
+            "artifact": {
+                "name": "ExampleMicroservices",
+                "scope": "user",
+                "version": "1.0-SNAPSHOT"
+            },
+            "name": "ProducerMicroservice"
+        },
+        "version": 1
+    }
+}
