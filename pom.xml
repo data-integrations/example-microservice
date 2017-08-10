@@ -13,6 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <microservice.versionrange>[1.0,1.1)</microservice.versionrange>
+    <cdap.version>4.2.0</cdap.version>
     <app.parents>microservice-app</app.parents>
     <widgets.dir>widgets</widgets.dir>
     <main.basedir>${project.basedir}</main.basedir>
@@ -28,7 +29,7 @@
     <dependency>
       <groupId>co.cask.cdap</groupId>
       <artifactId>cdap-api</artifactId>
-      <version>4.2.0</version>
+      <version>${cdap.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -36,6 +37,18 @@
       <artifactId>slf4j-api</artifactId>
       <version>1.7.5</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>co.cask.cdap</groupId>
+      <artifactId>cdap-unit-test</artifactId>
+      <version>${cdap.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>co.cask</groupId>
+      <artifactId>microservice-app</artifactId>
+      <version>1.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
