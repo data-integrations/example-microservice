@@ -1,17 +1,18 @@
-Example Microservices
----------------------
+# Example Microservices
 
-There are three microservices in this project to demonstrate the capabilities of microservices and how to build them on top of CDA
+This repository houses getting started Microservice. There are three microservices in this project to demonstrate the capabilities of microservices and how to build them on top of CDA
 
-*ProducerMicroservice* - generates consecutive numbers from 1 periodically at configured delay.
-*ProcessorMicroservice* - receives a number and checks if it is a multiple of a configured number. Emits that number if and only if it is a multiple.
-*ConsumerMicroservice* - receives a number and logs it
+* *ProducerMicroservice* - generates consecutive numbers from 1 periodically at configured delay.
+* *ProcessorMicroservice* - receives a number and checks if it is a multiple of a configured number. Emits that number if and only if it is a multiple.
+* *ConsumerMicroservice* - receives a number and logs it
 
 The above microservices can be connected in this order:
 
-*ProducerMicroservice --> ProcessorMicroservice --> ConsumerMicroservice*
+```
+   ProducerMicroservice > ProcessorMicroservice > ConsumerMicroservice
+```   
 
-Note that the '-->' connections/channels are configurable and it is defined by the user in the config.json. Currently supported channel types are TMS and Amazon SQS.
+Note that the '>' connections/channels are configurable and it is defined by the user through a JSON file or you can use the CDAP UI (Click on '+' to add Microservice). Currently supported channel types are TMS, WebSockets, Amazon SQS and MapR Streams. 
 
 If you are using TMS, the following properties are expected to be provied:
 	* topic
