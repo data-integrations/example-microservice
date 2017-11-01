@@ -14,7 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <microservice.versionrange>[1.0,1.1)</microservice.versionrange>
     <cdap.version>4.2.0</cdap.version>
-    <app.parents>microservice-app</app.parents>
+    <app.parents>microservice-core</app.parents>
     <widgets.dir>widgets</widgets.dir>
     <main.basedir>${project.basedir}</main.basedir>
   </properties>
