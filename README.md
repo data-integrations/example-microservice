@@ -1,5 +1,10 @@
 # Example Microservices
 
+<img  alt="Not Available in Cask Market" src="https://cdap-users.herokuapp.com/assets/cm-notavailable.svg"/>
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Join CDAP community](https://cdap-users.herokuapp.com/badge.svg?t=wrangler)](https://cdap-users.herokuapp.com?t=1)
+
+
 This repository houses getting started Microservice. There are three microservices in this project to demonstrate the capabilities of microservices and how to build them on top of CDA
 
 * *ProducerMicroservice* - generates consecutive numbers from 1 periodically at configured delay.
