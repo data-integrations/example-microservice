@@ -6,14 +6,14 @@
 
   <groupId>co.cask.sample</groupId>
   <artifactId>ExampleMicroservices</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
   <name>Example Microservics</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <microservice.versionrange>[1.0,1.1)</microservice.versionrange>
-    <cdap.version>4.2.0</cdap.version>
+    <cdap.version>5.1.2</cdap.version>
     <app.parents>microservice-core</app.parents>
     <widgets.dir>widgets</widgets.dir>
     <main.basedir>${project.basedir}</main.basedir>
@@ -56,68 +56,6 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
-          <execution>
-            <id>create-artifact-config</id>
-            <phase>prepare-package</phase>
-            <configuration>
-              <target>
-                <script language="javascript"><![CDATA[
-                  // for some reason, project.basedir evaluates to null if we just get the property here.
-                  // so we set main.basedir to project.basedir in the pom properties, then main.basedir is used here
-                  // where it evaluates correctly for whatever reason
-                  var baseDir = project.getProperty("main.basedir");
-                  var targetDir = project.getProperty("project.build.directory");
-                  var artifactId = project.getProperty("project.artifactId");
-                  var version = project.getProperty("project.version");
-                  var cfgFile = new java.io.File(targetDir, artifactId + "-" + version + ".json");
-                  if (!cfgFile.exists()) {
-                    cfgFile.createNewFile();
-                  }
-                  var parents = project.getProperty("app.parents").split(",");
-                  var parentVersions = project.getProperty("microservice.versionrange");
-                  var config = {
-                    "parents": [ ],
-                    "properties": {}
-                  }
-                  for (i = 0; i < parents.length; i++) {
-                    config.parents.push(parents[i].trim() + parentVersions);
-                  }
-                  // look in widgets directory for widget config for each plugin
-                  var widgetsDir = new java.io.File(baseDir, project.getProperty("widgets.dir"));
-                  if (widgetsDir.isDirectory()) {
-                    var widgetsFiles = widgetsDir.listFiles();
-                    for (i = 0; i < widgetsFiles.length; i++) {
-                      var widgetsFile = widgetsFiles[i];
-                      if (widgetsFile.isFile()) {
-                        var propertyName = "widgets." + widgetsFile.getName();
-                        // if the filename ends with .json
-                        if (propertyName.indexOf(".json", propertyName.length - 5) !== -1) {
-                          // strip the .json
-                          propertyName = propertyName.slice(0, -5);
-                          var contents = new java.lang.String(java.nio.file.Files.readAllBytes(widgetsFile.toPath()), java.nio.charset.StandardCharsets.UTF_8);
-                          var contentsAsJson = JSON.parse(contents);
-                          config.properties[propertyName] = JSON.stringify(contentsAsJson);
-                        }
-                      }
-                    }
-                  }
-                  var fw = new java.io.BufferedWriter(new java.io.FileWriter(cfgFile.getAbsoluteFile()));
-                  fw.write(JSON.stringify(config, null, 2));
-                  fw.close();
-                ]]></script>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
@@ -126,10 +64,42 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.14.1</version>
+        <configuration>
+          <argLine>-Xmx5000m -Djava.awt.headless=true -XX:+UseConcMarkSweepGC -XX:OnOutOfMemoryError="kill -9 %p" -Djava.net.preferIPv4Stack=true</argLine>
+          <reuseForks>false</reuseForks>
+          <reportFormat>plain</reportFormat>
+          <systemPropertyVariables>
+            <java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
+          </systemPropertyVariables>
+          <includes>
+            <include>**/*TestsSuite.java</include>
+            <include>**/*TestSuite.java</include>
+            <include>**/Test*.java</include>
+            <include>**/*Test.java</include>
+            <include>**/*TestCase.java</include>
+          </includes>
+          <excludes>
+            <exclude>**/*TestRun.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
         <version>2.5.4</version>
         <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Embed-Dependency>*;inline=false;scope=compile</Embed-Dependency>
+            <Embed-Transitive>true</Embed-Transitive>
+            <Embed-Directory>lib</Embed-Directory>
+            <!--Only @Plugin classes in the export packages will be included as plugin-->
+            <_exportcontents>io.cdap.plugin.fastfilter.*</_exportcontents>
+          </instructions>
+        </configuration>
         <executions>
           <execution>
             <phase>package</phase>
@@ -139,7 +109,26 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>io.cdap</groupId>
+        <artifactId>cdap-maven-plugin</artifactId>
+        <version>1.1.0</version>
+        <configuration>
+          <cdapArtifacts>
+            <parent>system:cdap-data-pipeline[6.0.0-SNAPSHOT,7.0.0-SNAPSHOT)</parent>
+            <parent>system:cdap-data-streams[6.0.0-SNAPSHOT,7.0.0-SNAPSHOT)</parent>
+          </cdapArtifacts>
+        </configuration>
+        <executions>
+          <execution>
+            <id>create-artifact-config</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>create-plugin-json</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
-
 </project>
